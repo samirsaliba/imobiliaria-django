@@ -31,9 +31,16 @@ class Imovel(models.Model):
         abstract = True
 
 class Casa(Imovel):
+    def __str__(self):
+        return "{} nº {}, {}, {}, {}".format(self.logradouro, self.numero, self.bairro, self.cidade, self.uf)
+
     pass
 
 class Apartamento(Imovel):
     andar = models.PositiveSmallIntegerField(blank=False)
     valor_condominio = models.PositiveSmallIntegerField(blank=False)
     possui_portaria_24h = models.BooleanField(default=None)
+
+    def __str__(self):
+        return "{} nº {}, {}º andar, {}, {}, {}".format(self.logradouro, self.numero, self.andar, self.bairro, self.cidade, self.uf)
+
