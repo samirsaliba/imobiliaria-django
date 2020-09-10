@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
+from django.views import generic
 
-from .models import Casa, Apartamento, Imovel
+from .models import Casa, Apartamento
 
 # Create your views here.
 
@@ -15,16 +16,13 @@ def index(request):
     }
     return render(request, 'imvwb/index.html', context)
 
-def detail_casa(request, casa_id):
-   
-    casa = get_object_or_404(Casa, pk=casa_id)
-    context = {'casa': casa}
+class DetailCasaView(generic.DetailView):
+    model = Casa
+    template_name = 'imvwb/detail_casa.html'
+    context_object_name = 'casa'
 
-    return render(request, 'imvwb/detail_casa.html', context)
 
-def detail_apto(request, apto_id):
-    
-    apto = get_object_or_404(Apartamento, pk=apto_id)
-    context = {'apto': apto}
-    
-    return render(request, 'imvwb/detail_apto.html', context)
+class DetailAptoView(generic.DetailView):
+    model = Apartamento
+    template_name = 'imvwb/detail_apto.html'
+    context_object_name = 'apto'
