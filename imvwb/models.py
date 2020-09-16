@@ -12,7 +12,7 @@ class Imovel(models.Model):
     num_salas_jantar = models.PositiveSmallIntegerField(blank=False)
     area = models.PositiveSmallIntegerField(blank=False)
     num_vagas_garagem = models.PositiveSmallIntegerField(blank=False)
-    possui_armario_embutido = models.BooleanField(default=None)
+    possui_armario_embutido = models.BooleanField(default=False)
     descricao = models.TextField(max_length=500, blank=True)
     aluguel = models.PositiveIntegerField(blank=False)
     data_postagem = models.DateTimeField(auto_now_add=True)
@@ -46,4 +46,4 @@ class Imagem(models.Model):
     imovel = models.ForeignKey(Imovel, on_delete=models.CASCADE)
 
     def __str__(self):
-        return "{}".format(self.imovel)
+        return "{}".format(self.imagem.url)

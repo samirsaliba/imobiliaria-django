@@ -10,16 +10,15 @@ class CasaForm(forms.Form):
     num_salas_jantar = forms.IntegerField(label='Número de salas de jantar', max_value=10)
     area = forms.IntegerField(label='Área (em m²)', max_value=max_small_integer)
     num_vagas_garagem = forms.IntegerField(label='Número de vagas de garagem', max_value=10)
-    possui_armario_embutido = forms.BooleanField(label='Possui armário embutido?')
+    possui_armario_embutido = forms.BooleanField(label='Possui armário embutido?', required=False)
     
-
     logradouro = forms.CharField(label='Rua', max_length=100)
     numero = forms.CharField(label='Número', max_length=max_small_integer)
     bairro = forms.ModelChoiceField(label='Bairro', queryset=Bairro.objects.all())
     uf = forms.CharField(label='Unidade Federativa', max_length=2)
     cidade = forms.CharField(label='Cidade')
     aluguel = forms.IntegerField(label='Valor do aluguel', max_value=max_positive_integer)
-    descricao = forms.CharField(label='Descricao', max_length=500)
+    descricao = forms.CharField(label='Descricao', max_length=500, widget=forms.Textarea)
 
     imagens = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
 
@@ -40,7 +39,7 @@ class ApartamentoForm(forms.Form):
     possui_armario_embutido = forms.BooleanField(label='Possui armário embutido?')
 
     andar = forms.IntegerField(label='Andar', max_value=100)
-    valor_condominio = forms.IntegerField(label='Valor do condomínio', max_value=PositiveSmallIntegerField)
+    valor_condominio = forms.IntegerField(label='Valor do condomínio', max_value=max_small_integer)
     possui_portaria_24h = forms.BooleanField(label='Possui portaria 24hrs?')
 
     logradouro = forms.CharField(label='Rua', max_length=100)
@@ -50,3 +49,5 @@ class ApartamentoForm(forms.Form):
     cidade = forms.CharField(label='Cidade')
     aluguel = forms.IntegerField(label='Valor do aluguel', max_value=max_positive_integer)
     descricao = forms.CharField(label='Descricao', max_length=500)
+
+    imagens = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))

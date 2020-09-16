@@ -1,3 +1,6 @@
+{% extends "./base.html" %} 
+{% block content %}
+
 <h3>Casas</h3>
 {% for casa in casas %}
     <ul>
@@ -11,3 +14,6 @@
         <li><a href="{% url 'imvwb:detail_apto' apto.id %}">{{apto}}</a></li>
     </ul>
 {% endfor %}
+
+
+{% endblock %}
