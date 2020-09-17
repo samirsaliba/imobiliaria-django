@@ -4,14 +4,31 @@ from django.urls import reverse
 
 from django.views.generic import ListView
 import datetime
+from django.utils import timezone
+
 from .models import Imovel, Casa, Apartamento, Imagem
 from .forms import CasaForm, ApartamentoForm
+
 
 # Create your views here.
 
 def index(request):
     casas = Casa.objects.order_by('data_postagem')[:5]
     aptos = Apartamento.objects.order_by('data_postagem')[:5]
+
+    now = timezone.now()
+    one_week_ago = now-datetime.timedelta(7)
+
+    for casa in casas:
+        imagem = Imagem.objects.filter(imovel_id=casa.id)[0]
+        casa.imagem = imagem.imagem
+        casa.new=True if casa.data_postagem > one_week_ago else False
+
+
+    for apto in aptos:
+        imagem = Imagem.objects.filter(imovel_id=apto.id)[0]
+        apto.imagem = imagem.imagem
+        apto.new=True if casa.data_postagem > one_week_ago else False
 
     context = {
         'casas':casas,
@@ -22,7 +39,6 @@ def index(request):
 def contato(request):
     context = {}
     return render(request, 'imvwb/contato.html', context)
-
 
 def detail_casa(request, casa_id):
     casa = get_object_or_404(Casa, pk=casa_id)
@@ -63,7 +79,6 @@ def cadastro_casa(request):
             cidade = form.cleaned_data['cidade']
             aluguel = form.cleaned_data['aluguel']
             descricao = form.cleaned_data['descricao']
-            data_postagem = datetime.date.today()
 
             casa = Casa(
                 num_quartos = num_quartos,
@@ -74,7 +89,6 @@ def cadastro_casa(request):
                 possui_armario_embutido = possui_armario_embutido,
                 descricao = descricao,
                 aluguel = aluguel,
-                data_postagem = data_postagem,
                 logradouro = logradouro,
                 numero = numero,
                 bairro = bairro,
