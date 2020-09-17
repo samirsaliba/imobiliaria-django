@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 
-from django.views.generic.edit import FormView
+from django.views.generic import ListView
 import datetime
 from .models import Imovel, Casa, Apartamento, Imagem
 from .forms import CasaForm, ApartamentoForm
@@ -19,6 +19,11 @@ def index(request):
     }
     return render(request, 'imvwb/index.html', context)
 
+def contato(request):
+    context = {}
+    return render(request, 'imvwb/contato.html', context)
+
+
 def detail_casa(request, casa_id):
     casa = get_object_or_404(Casa, pk=casa_id)
     imagens = Imagem.objects.filter(imovel=casa_id)
@@ -34,7 +39,6 @@ def detail_apartamento(request, apto_id):
     context = {'apto': apto, 'imagens': imagens}
 
     return render(request, 'imvwb/detail_apto.html', context)
-
 
 def cadastro_casa(request):
     # if this is a POST request we need to process the form data
@@ -98,3 +102,14 @@ def cadastro_casa(request):
         form = CasaForm()
 
     return render(request, 'imvwb/cadastro_imovel.html', {'form': form})
+
+class ListaCasas(ListView):
+    context_object_name = 'casas'
+    queryset = Casa.objects.all()
+    template_name = 'imvwb/lista_casas.html'
+
+class ListaApartamentos(ListView):
+    context_object_name = 'aptos'
+    queryset = Apartamento.objects.all()
+    template_name = 'imvwb/lista_aptos.html'
+

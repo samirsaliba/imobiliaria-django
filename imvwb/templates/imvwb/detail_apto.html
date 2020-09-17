@@ -1,6 +1,51 @@
 {% extends "./base.html" %} 
 {% block content %}
 
-{{apto}}
+<h4 class="pt-4">Apartamento em {{apto.bairro}}, {{apto.cidade}}, {{apto.area}} m² <span class="badge badge-success badge-pill">R${{apto.aluguel}}</span></h4> 
+<small class="text-muted">{{apto.logradouro}}, nº {{apto.numero}}</small>
+
+
+
+<div class="row pt-4">
+    <div class=col-4>
+        <ul class="list-group">
+            <li class="list-group-item">Andar   <span class="badge badge-primary badge-pill">{{apto.andar}}</span></li>
+            {%if apto.possui_portaria_24h%}
+                <li class="list-group-item">Portaria 24 horas/dia
+                    <span class="badge badge-success badge-pill">&#10004;
+                    </span>
+                </li>
+            {% endif %}
+            
+            <li class="list-group-item">Quartos   <span class="badge badge-primary badge-pill">{{apto.num_quartos}}</span></li>
+            <li class="list-group-item">Salas de estar     <span class="badge badge-primary badge-pill">{{apto.num_salas_estar}}</span></li>
+            <li class="list-group-item">Salas de jantar    <span class="badge badge-primary badge-pill">{{apto.num_salas_jantar}}</span></li>
+            <li class="list-group-item">Área total: {{apto.area}} m²</li>
+            <li class="list-group-item">Vagas na garagem  <span class="badge badge-primary badge-pill">{{apto.num_vagas_garagem}}</span></li>
+            {%if apto.possui_armario_embutido %}
+                <li class="list-group-item">Armário embutido
+                    <span class="badge badge-success badge-pill">&#10004;
+                    </span>
+                </li>
+            {% endif %}
+            <li class="list-group-item list-group-item-info">Aluguel: R${{apto.aluguel}}</li>
+            <li class="list-group-item list-group-item-info">Condomínio: R${{apto.valor_condominio}}</li>
+        </ul>
+
+        <blockquote class="blockquote pt-4">
+            <p class="mb-0 text-justify">{{apto.descricao}}</p>
+        </blockquote>
+    </div>
+    <div class=col-8>
+        {% for img_obj in imagens %}
+            <img src="{{img_obj.imagem.url}}" class="img-fluid" alt="">
+        {% endfor %}
+    </div>
+</div>
+
+
+
+
+
 
 {% endblock %}

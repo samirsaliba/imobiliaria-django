@@ -1,10 +1,38 @@
 {% extends "./base.html" %} 
 {% block content %}
 
-{{casa}}
+<h4 class="pt-4">Casa em {{casa.bairro}}, {{casa.cidade}}, {{casa.area}} m² <span class="badge badge-success badge-pill">R${{casa.aluguel}}</span></h4>
+<small class="text-muted">{{casa.logradouro}}, nº {{casa.numero}}</small>
 
-{% for img_obj in imagens %}
-    <img src="{{img_obj.imagem.url}}" class="img-fluid" alt="">
-{% endfor %}
+<div class="row pt-4">
+    <div class=col-4>
+        <ul class="list-group">
+            <li class="list-group-item">Quartos {{casa.num_quartos}}</li>
+            <li class="list-group-item">Salas de estar    <span class="badge badge-primary badge-pill">{{casa.num_salas_estar}}</span></li>
+            <li class="list-group-item">Salas de jantar   <span class="badge badge-primary badge-pill">{{casa.num_salas_jantar}}</span></li>
+            <li class="list-group-item">Área total  {{casa.area}} m²</li>
+            <li class="list-group-item">Vagas na garagem  <span class="badge badge-primary badge-pill">{{casa.num_vagas_garagem}}</span></li>
+            {%if casa.possui_armario_embutido %}
+                <li class="list-group-item">Armário embutido
+                    <span class="badge badge-success badge-pill">&#10004;
+                    </span>
+                </li>
+            {% endif %}
+            <li class="list-group-item">{{casa.logradouro}}, nº {{casa.numero}}, {{casa.bairro}}</li>
+            <li class="list-group-item list-group-item-info">Aluguel: R${{casa.aluguel}}</li>
+        </ul>
+        <blockquote class="blockquote text-center pt-4">
+            <p class="mb-0 text-justify">{{casa.descricao}}</p>
+        </blockquote>
+    </div>
+
+    
+
+    <div class=col-8>
+        {% for img_obj in imagens %}
+            <img src="{{img_obj.imagem.url}}" class="img-fluid" alt="">
+        {% endfor %}
+    </div>
+</div>
 
 {% endblock %}
