@@ -2,6 +2,53 @@
 {% block content %}
 
 <h3>Casas</h3>
+<div class="jumbotron">
+    <form method="get">
+        <div class="row pb-3">
+            <div class="col">
+                <div class="input-group mb-3">
+                    {{ form.aluguel__gt.errors }}
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="{{form.aluguel__gt.id_for_label}}">Aluguel mínimo</span>
+                    </div>
+                    {{ form.aluguel__gt }}
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+                    {{ form.aluguel__lt.errors }}
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="{{ form.aluguel__lt.id_for_label }}">Aluguel máximo</span>
+                    </div>
+                    {{ form.aluguel__lt }}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class='col'>
+                <div class="input-group mb-3">
+                    {{ form.bairro.errors }}
+                    <div class="input-group-prepend">
+                    <label class="input-group-text" for="{{form.bairro.id_for_label}}">Bairro</label>
+                    </div>
+                    {{ form.bairro }}
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+                    {{ form.quartos__gt.errors }}
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="{{form.quartos__gt.id_for_label}}">Nº quartos mínimo</span>
+                    </div>
+                    {{ form.quartos__gt }}
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Filtrar</button>
+    </form>
+</div>
+
 {% for casa in casas %}
 <div class="card" style="width: 18rem;">
     <img src="{{casa.imagem.url}}" class="card-img-top" alt="...">

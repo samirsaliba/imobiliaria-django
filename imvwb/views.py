@@ -7,7 +7,7 @@ from django.utils import timezone
 
 from .models import Imovel, Casa, Apartamento, Imagem
 from .forms import CasaForm, ApartamentoForm
-from .filters import ApartamentoFilter
+from .filters import ApartamentoFilter, CasaFilter
 
 
 # Create your views here.
@@ -118,18 +118,21 @@ def cadastro_casa(request):
     return render(request, 'imvwb/cadastro_imovel.html', {'form': form})
 
 def lista_casas(request):
-    casas = Casa.objects.order_by('data_postagem')
+    casas_list = Casa.objects.order_by('data_postagem')
+    casa_filter = CasaFilter(request.GET, queryset=casas_list)
     now = timezone.now()
     one_week_ago = now-datetime.timedelta(7)
 
-    for casa in casas:
+    for casa in casa_filter.qs:
         imagem = Imagem.objects.filter(imovel_id=casa.id)[0]
         casa.imagem = imagem.imagem
         casa.new=True if casa.data_postagem > one_week_ago else False
     
     context = {
-        'casas':casas,
+        'casas':casa_filter.qs,
+        'form':casa_filter.form
     }
+
     return render(request, 'imvwb/lista_casas.html', context)
 
 def lista_aptos(request):

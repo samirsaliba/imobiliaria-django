@@ -22,3 +22,13 @@ class ApartamentoFilter(django_filters.FilterSet):
         model = Apartamento
         fields = ['aluguel__gt', 'aluguel__lt', 'possui_portaria_24h', 'quartos__gt', 'bairro']
 
+class CasaFilter(django_filters.FilterSet):
+    aluguel__lt = django_filters.NumberFilter(field_name='aluguel', lookup_expr='lt', widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    aluguel__gt = django_filters.NumberFilter(field_name='aluguel', lookup_expr='gt', widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    bairro = django_filters.ModelChoiceFilter(queryset=Bairro.objects.all(), widget=forms.Select(attrs={'class': 'custom-select'}))
+    quartos__gt = django_filters.NumberFilter(field_name='num_quartos', lookup_expr='gt', widget=forms.NumberInput(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model = Casa
+        fields = ['aluguel__gt', 'aluguel__lt', 'quartos__gt', 'bairro']
+
