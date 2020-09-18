@@ -8,6 +8,7 @@ from django.utils import timezone
 from .models import Imovel, Casa, Apartamento, Imagem
 from .forms import CasaForm, ApartamentoForm
 from .filters import ApartamentoFilter, CasaFilter
+from django.contrib.auth import authenticate, login
 
 
 # Create your views here.
@@ -62,7 +63,6 @@ def cadastro_casa(request):
         # create a form instance and populate it with data from the request:
         form = CasaForm(request.POST, request.FILES)
         # check whether it's valid:
-
         if form.is_valid():
             # Se o form for valido, cadastrar a Casa
             num_quartos = form.cleaned_data['num_quartos']

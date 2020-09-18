@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from django.contrib.auth import views as auth_views
 
 app_name = 'imvwb'
 urlpatterns = [
@@ -10,5 +11,6 @@ urlpatterns = [
     path('casas/', views.lista_casas, name='casas'),
     path('apartamentos/', views.lista_aptos, name='aptos'),
     path('contato', views.contato, name='contato'),
+    path('entrar/', auth_views.LoginView.as_view(template_name='imvwb/entrar.html'), name='entrar')
 ]
 
