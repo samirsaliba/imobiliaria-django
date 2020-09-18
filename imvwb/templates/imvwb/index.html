@@ -4,18 +4,16 @@
 <h3>Casas</h3>
 <div class="row pb-4">
     {% for casa in casas %}
-        <div class="col-4 imv-box">
-            <img src="{{casa.imagem.url}}" class="img-fluid float-left rounded" alt="...">
-            <h5>
-                <a href="{% url 'imvwb:detail_casa' casa.id %}">
-                    Casa em {{casa.bairro}}, {{casa.cidade}}, {{casa.area}} m²
-                </a>
-                <span class="badge badge-success badge-pill">R${{casa.aluguel}}</span>
-                {%if casa.new %}
-                    <span class="badge badge-secondary badge-pill">Novidade</span>
-                {% endif %}
-            </h5> 
+    <div class="card" style="width: 18rem;">
+        <img src="{{casa.imagem.url}}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">Casa em {{casa.bairro}}, {{casa.cidade}}, {{casa.area}} m²</h5>
+            <span class="badge badge-success badge-pill">R${{casa.aluguel}}</span>
+            {%if casa.new %}
+                <span class="badge badge-secondary badge-pill">Novidade</span>
+            {% endif %}
         </div>
+    </div>
     {% endfor %}
 </div>
 <small class="h5 text-muted ">
@@ -29,17 +27,19 @@
 <h3>Apartamentos</h3>
 <div class="row">
     {% for apto in aptos %}
-        <div class="col-4 imv-box">
-            <img src="{{apto.imagem.url}}" class="img-fluid float-left rounded" alt="...">
-            <h5>
-                <a href="{% url 'imvwb:detail_apto' apto.id %}">
-                    Apartamento em {{apto.bairro}}, {{apto.cidade}}, {{apto.area}} m²
-                </a>
+        <div class="card" style="width: 18rem;">
+            <img src="{{apto.imagem.url}}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a href="{% url 'imvwb:detail_apto' apto.id %}">
+                        Apartamento em {{apto.bairro}}, {{apto.cidade}}, {{apto.area}} m²
+                    </a>
+                </h5>    
                 <span class="badge badge-success badge-pill">R${{apto.aluguel}}</span>
                 {%if apto.new %}
                     <span class="badge badge-secondary badge-pill">Novidade</span>
                 {% endif %}
-            </h5> 
+            </div> 
         </div>
     {% endfor %}
 </div>
