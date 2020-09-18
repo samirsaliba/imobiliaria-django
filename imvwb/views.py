@@ -2,12 +2,12 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 
-from django.views.generic import ListView
 import datetime
 from django.utils import timezone
 
 from .models import Imovel, Casa, Apartamento, Imagem
 from .forms import CasaForm, ApartamentoForm
+from .filters import ApartamentoFilter
 
 
 # Create your views here.
@@ -117,13 +117,36 @@ def cadastro_casa(request):
 
     return render(request, 'imvwb/cadastro_imovel.html', {'form': form})
 
-class ListaCasas(ListView):
-    context_object_name = 'casas'
-    queryset = Casa.objects.all()
-    template_name = 'imvwb/lista_casas.html'
+def lista_casas(request):
+    casas = Casa.objects.order_by('data_postagem')
+    now = timezone.now()
+    one_week_ago = now-datetime.timedelta(7)
 
-class ListaApartamentos(ListView):
-    context_object_name = 'aptos'
-    queryset = Apartamento.objects.all()
-    template_name = 'imvwb/lista_aptos.html'
+    for casa in casas:
+        imagem = Imagem.objects.filter(imovel_id=casa.id)[0]
+        casa.imagem = imagem.imagem
+        casa.new=True if casa.data_postagem > one_week_ago else False
+    
+    context = {
+        'casas':casas,
+    }
+    return render(request, 'imvwb/lista_casas.html', context)
 
+def lista_aptos(request):
+    aptos_list = Apartamento.objects.order_by('data_postagem')
+    apto_filter = ApartamentoFilter(request.GET, queryset=aptos_list)
+
+    now = timezone.now()
+    one_week_ago = now-datetime.timedelta(7)
+
+    for apto in apto_filter.qs:
+        imagem = Imagem.objects.filter(imovel_id=apto.id)[0]
+        apto.imagem = imagem.imagem
+        apto.new=True if apto.data_postagem > one_week_ago else False
+    
+    context = {
+        'aptos':apto_filter.qs,
+        'form':apto_filter.form
+    }
+
+    return render(request, 'imvwb/lista_aptos.html', context)

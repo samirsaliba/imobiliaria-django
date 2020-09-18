@@ -3,10 +3,21 @@
 
 <h3>Casas</h3>
 {% for casa in casas %}
-    <ul>
-        <li><a href="{% url 'imvwb:detail_casa' casa.id %}">{{casa}}</a></li>
-    </ul>
-
+<div class="card" style="width: 18rem;">
+    <img src="{{casa.imagem.url}}" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">
+            <a href="{% url 'imvwb:detail_casa' casa.id %}">
+                Casa em {{casa.bairro}}, {{casa.cidade}}, {{casa.area}} m²
+            </a>
+        </h5>
+        <span class="badge badge-success badge-pill">R${{casa.aluguel}}</span>
+        {%if casa.new %}
+            <span class="badge badge-secondary badge-pill">Novidade</span>
+        {% endif %}
+    </div>
+</div>
 {% endfor %}
+
 
 {% endblock %}

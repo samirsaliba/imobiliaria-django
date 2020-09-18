@@ -7,8 +7,8 @@ urlpatterns = [
     path('casas/<int:casa_id>/', views.detail_casa, name='detail_casa'),
     path('apartamentos/<int:apto_id>/', views.detail_apartamento, name='detail_apto'),
     path('cadastro_casa/', views.cadastro_casa, name='cadastro_casa'),
-    path('casas/', views.ListaCasas.as_view(), name='casas'),
-    path('apartamentos/', views.ListaApartamentos.as_view(), name='aptos'),
+    path('casas/', views.lista_casas, name='casas'),
+    path('apartamentos/', views.lista_aptos, name='aptos'),
     path('contato', views.contato, name='contato'),
 ]
 
