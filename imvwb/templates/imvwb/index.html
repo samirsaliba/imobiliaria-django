@@ -1,56 +1,58 @@
 {% extends "./base.html" %} 
 {% block content %}
 
-<h3>Casas</h3>
+<h3>
+    <a href="{% url 'imvwb:casas' %}" class="text-decoration-none">
+       Casas
+    </a>
+</h3>
 <div class="row pb-4">
     {% for casa in casas %}
     <div class="card" style="width: 18rem;">
         <img src="{{casa.imagem.url}}" class="card-img-top" alt="...">
         <div class="card-body">
-            <h5 class="card-title">Casa em {{casa.bairro}}, {{casa.cidade}}, {{casa.area}} m²</h5>
-            <span class="badge badge-success badge-pill">R${{casa.aluguel}}</span>
-            {%if casa.new %}
-                <span class="badge badge-secondary badge-pill">Novidade</span>
-            {% endif %}
+            <h5 class="card-title">
+                <a href="{% url 'imvwb:detail_casa' casa.id %}" class="text-decoration-none">
+                    Casa em {{casa.bairro}}, {{casa.cidade}}, {{casa.area}} m²
+                </a>
+            </h5>
+            <p class="card-text">{{casa.num_quartos}} Quartos</p>
+            <h5>
+                <span class="badge badge-success badge-pill">R${{casa.aluguel}}</span>
+                {%if casa.new %}
+                    <span class="badge badge-secondary badge-pill">Novidade</span>
+                {% endif %}
+            </h5>
         </div>
     </div>
     {% endfor %}
 </div>
-<small class="h5 text-muted ">
-    <p class="text-right">
-        <a href="{% url 'imvwb:casas'  %}">
-            Ver todas as casas
-        </a>
-    </p>
-</small>
 
-<h3>Apartamentos</h3>
+<h3>
+    <a href="{% url 'imvwb:aptos' %}" class="text-decoration-none">
+       Apartamentos
+    </a>
+</h3>
 <div class="row">
     {% for apto in aptos %}
         <div class="card" style="width: 18rem;">
             <img src="{{apto.imagem.url}}" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">
-                    <a href="{% url 'imvwb:detail_apto' apto.id %}">
+                    <a href="{% url 'imvwb:detail_apto' apto.id %}" class="text-decoration-none">
                         Apartamento em {{apto.bairro}}, {{apto.cidade}}, {{apto.area}} m²
                     </a>
-                </h5>    
-                <span class="badge badge-success badge-pill">R${{apto.aluguel}}</span>
-                {%if apto.new %}
-                    <span class="badge badge-secondary badge-pill">Novidade</span>
-                {% endif %}
+                </h5>
+                <p class="card-text">{{casa.num_quartos}} Quartos</p>
+                <h5>
+                    <span class="badge badge-success badge-pill">R${{apto.aluguel}}</span>
+                    {%if apto.new %}
+                        <span class="badge badge-secondary badge-pill">Novidade</span>
+                    {% endif %}
+                </h5>
             </div> 
         </div>
     {% endfor %}
 </div>
-
-<small class="h5 text-muted ">
-    <p class="text-right">
-        <a href="{% url 'imvwb:aptos'  %}">
-            Ver todos apartamentos
-        </a>
-    </p>
-</small>
-
 
 {% endblock %}

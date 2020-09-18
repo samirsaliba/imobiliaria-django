@@ -49,7 +49,7 @@ def detail_casa(request, casa_id):
 
     return render(request, 'imvwb/detail_casa.html', context)
 
-def detail_apartamento(request, apto_id):
+def detail_apto(request, apto_id):
     apto = get_object_or_404(Apartamento, pk=apto_id)
     imagens = Imagem.objects.filter(imovel=apto_id)
     context = {'apto': apto, 'imagens': imagens}
