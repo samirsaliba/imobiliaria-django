@@ -51,22 +51,31 @@
     </form>
 </div>
 
-{% for apto in aptos %}
-    <div class="card" style="width: 18rem;">
-        <img src="{{apto.imagem.url}}" class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">
-                <a href="{% url 'imvwb:detail_apto' apto.id %}">
-                    Apartamento em {{apto.bairro}}, {{apto.cidade}}, {{apto.area}} m²
-                </a>
-            </h5>    
-            <span class="badge badge-success badge-pill">R${{apto.aluguel}}</span>
-            {%if apto.new %}
-                <span class="badge badge-secondary badge-pill">Novidade</span>
-            {% endif %}
-        </div> 
-    </div>
-{% endfor %}
+<div class=row>
+    {% for apto in aptos %}
+        {% if forloop.counter|divisibleby:"5" %}
+            <div class=row>
+        {% endif %}
+        <div class="card" style="width: 18rem;">
+            <img src="{{apto.imagem.url}}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a href="{% url 'imvwb:detail_apto' apto.id %}">
+                        Apartamento em {{apto.bairro}}, {{apto.cidade}}, {{apto.area}} m²
+                    </a>
+                </h5>    
+                <span class="badge badge-success badge-pill">R${{apto.aluguel}}</span>
+                {%if apto.new %}
+                    <span class="badge badge-secondary badge-pill">Novidade</span>
+                {% endif %}
+            </div> 
+        </div>
+        {% if forloop.counter|divisibleby:"5" %}
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+
 
 
 

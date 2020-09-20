@@ -117,6 +117,74 @@ def cadastro_casa(request):
 
     return render(request, 'imvwb/cadastro_imovel.html', {'form': form})
 
+def cadastro_apto(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = ApartamentoForm(request.POST, request.FILES)
+        # check whether it's valid:
+        if form.is_valid():
+            # Se o form for valido, cadastrar a Casa
+            num_quartos = form.cleaned_data['num_quartos']
+            num_salas_estar = form.cleaned_data['num_salas_estar']
+            num_salas_jantar = form.cleaned_data['num_salas_jantar']
+            area = form.cleaned_data['area']
+            num_vagas_garagem = form.cleaned_data['num_vagas_garagem']
+            possui_armario_embutido = form.cleaned_data['possui_armario_embutido']
+            
+            logradouro = form.cleaned_data['logradouro']
+            numero = form.cleaned_data['numero']
+            bairro = form.cleaned_data['bairro']
+            uf = form.cleaned_data['uf']
+            cidade = form.cleaned_data['cidade']
+            aluguel = form.cleaned_data['aluguel']
+            descricao = form.cleaned_data['descricao']
+
+
+            andar = form.cleaned_data['andar']
+            valor_condominio = form.cleaned_data['valor_condominio']
+            possui_portaria_24h = form.cleaned_data['possui_portaria_24h']
+
+
+            apto = Apartamento(
+                num_quartos = num_quartos,
+                num_salas_estar = num_salas_estar,
+                num_salas_jantar = num_salas_jantar,
+                area = area,
+                num_vagas_garagem = num_vagas_garagem,
+                possui_armario_embutido = possui_armario_embutido,
+                descricao = descricao,
+                aluguel = aluguel,
+                logradouro = logradouro,
+                numero = numero,
+                bairro = bairro,
+                cidade = cidade,
+                uf = uf,
+                andar = andar,
+                valor_condominio = valor_condominio,
+                possui_portaria_24h = possui_portaria_24h
+            )
+
+            apto.save()
+            files = request.FILES.getlist('imagens')
+            imovel = Imovel.objects.get(pk=apto.id)
+
+            for img in files:
+                # Apos ter criado o apto, cadastrar cada imagem - com a PK do apto
+                img_objeto = Imagem(
+                        imagem = img,
+                        imovel = imovel
+                )
+                img_objeto.save()
+            
+            return HttpResponseRedirect(reverse('imvwb:index'))
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = ApartamentoForm()
+
+    return render(request, 'imvwb/cadastro_imovel.html', {'form': form})
+
 def lista_casas(request):
     casas_list = Casa.objects.order_by('data_postagem')
     casa_filter = CasaFilter(request.GET, queryset=casas_list)

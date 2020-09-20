@@ -1,10 +1,214 @@
 {% extends "./base.html" %} 
 {% block content %}
 
-<form action="" method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_ul }}
-    <input type="submit" value="Submit">
+    <div class="row">
+        <div class="col">
+            <div class="input-group mb-3">
+                {{ form.num_quartos.errors }}
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="{{form.num_quartos.id_for_label}}">{{form.num_quartos.label}}</span>
+                </div>
+                {{ form.num_quartos }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class='col'>
+            <div class="input-group mb-3">
+                {{ form.num_salas_estar.errors }}
+                <div class="input-group-prepend">
+                <label class="input-group-text" for="{{form.num_salas_estar.id_for_label}}">{{form.num_salas_estar.label}}</label>
+                </div>
+                {{ form.num_salas_estar }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class='col'>
+            <div class="input-group mb-3">
+                {{ form.num_salas_jantar.errors }}
+                <div class="input-group-prepend">
+                <label class="input-group-text" for="{{form.num_salas_jantar.id_for_label}}">{{form.num_salas_jantar.label}}</label>
+                </div>
+                {{ form.num_salas_jantar }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class='col'>
+            <div class="input-group mb-3">
+                {{ form.area.errors }}
+                <div class="input-group-prepend">
+                <label class="input-group-text" for="{{form.area.id_for_label}}">{{form.area.label}}</label>
+                </div>
+                {{ form.area }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class='col'>
+            <div class="input-group mb-3">
+                {{ form.num_vagas_garagem.errors }}
+                <div class="input-group-prepend">
+                <label class="input-group-text" for="{{form.num_vagas_garagem.id_for_label}}">{{form.num_vagas_garagem.label}}</label>
+                </div>
+                {{ form.num_vagas_garagem }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class='col'>
+            <div class="input-group mb-3">
+                {{ form.possui_armario_embutido.errors }}
+                <div class="input-group-prepend">
+                <label class="input-group-text" for="{{form.possui_armario_embutido.id_for_label}}">{{form.possui_armario_embutido.label}}</label>
+                </div>
+                {{ form.possui_armario_embutido }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class='col'>
+            <div class="input-group mb-3">
+                {{ form.logradouro.errors }}
+                <div class="input-group-prepend">
+                <label class="input-group-text" for="{{form.logradouro.id_for_label}}">{{form.logradouro.label}}</label>
+                </div>
+                {{ form.logradouro }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class='col'>
+            <div class="input-group mb-3">
+                {{ form.numero.errors }}
+                <div class="input-group-prepend">
+                <label class="input-group-text" for="{{form.numero.id_for_label}}">{{form.numero.label}}</label>
+                </div>
+                {{ form.numero }}
+            </div>
+        </div>
+    </div>
+
+    {% if form.tipo == 2 %}
+    <div class="row">
+        <div class='col'>
+            <div class="input-group mb-3">
+                {{ form.andar.errors }}
+                <div class="input-group-prepend">
+                <label class="input-group-text" for="{{form.andar.id_for_label}}">{{form.andar.label}}</label>
+                </div>
+                {{ form.andar }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class='col'>
+            <div class="input-group mb-3">
+                {{ form.possui_portaria_24h.errors }}
+                <div class="input-group-prepend">
+                <label class="input-group-text" for="{{form.possui_portaria_24h.id_for_label}}">{{form.possui_portaria_24h.label}}</label>
+                </div>
+                {{ form.possui_portaria_24h }}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="row">
+        <div class='col'>
+            <div class="input-group mb-3">
+                {{ form.bairro.errors }}
+                <div class="input-group-prepend">
+                <label class="input-group-text" for="{{form.bairro.id_for_label}}">{{form.bairro.label}}</label>
+                </div>
+                {{ form.bairro }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class='col'>
+            <div class="input-group mb-3">
+                {{ form.uf.errors }}
+                <div class="input-group-prepend">
+                <label class="input-group-text" for="{{form.uf.id_for_label}}">{{form.uf.label}}</label>
+                </div>
+                {{ form.uf }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class='col'>
+            <div class="input-group mb-3">
+                {{ form.cidade.errors }}
+                <div class="input-group-prepend">
+                <label class="input-group-text" for="{{form.cidade.id_for_label}}">{{form.cidade.label}}</label>
+                </div>
+                {{ form.cidade }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class='col'>
+            <div class="input-group mb-3">
+                {{ form.aluguel.errors }}
+                <div class="input-group-prepend">
+                <label class="input-group-text" for="{{form.aluguel.id_for_label}}">{{form.aluguel.label}}</label>
+                </div>
+                {{ form.aluguel }}
+            </div>
+        </div>
+    </div>
+
+    {% if form.tipo == 2 %}
+    <div class="row">
+        <div class='col'>
+            <div class="input-group mb-3">
+                {{ form.valor_condominio.errors }}
+                <div class="input-group-prepend">
+                <label class="input-group-text" for="{{form.valor_condominio.id_for_label}}">{{form.valor_condominio.label}}</label>
+                </div>
+                {{ form.valor_condominio }}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="row">
+        <div class='col'>
+            <div class="input-group mb-3">
+                {{ form.descricao.errors }}
+                <div class="input-group-prepend">
+                <label class="input-group-text" for="{{form.descricao.id_for_label}}">{{form.descricao.label}}</label>
+                </div>
+                {{ form.descricao }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class='col-sm-2 col-form-label'>
+            {{ form.imagens.errors }}
+            <label for="{{form.imagens.id_for_label}}" class="col-sm-2 col-form-label mt-0 pt-0">{{form.imagens.label}}</label>
+        </div>
+        <div class="col-sm-10 pt-1">
+            {{ form.imagens }}
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Cadastrar</button>
 </form>
 
 
