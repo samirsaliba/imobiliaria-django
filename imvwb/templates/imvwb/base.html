@@ -12,10 +12,13 @@
   </style>
 
   {% load imvwb_extras %}
+  {% load static %}
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="{% url 'imvwb:index'  %}">Imóveis Web</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand px-0 py-0 mx-0" href="{% url 'imvwb:index'  %}" style="width:175px">
+        <img src="{% static "imvwb/images/umlugar.png" %}" style="width:100%" class="d-inline-block align-top" alt="umlugar imóveis">
+      </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
