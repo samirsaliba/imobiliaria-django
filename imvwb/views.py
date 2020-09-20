@@ -14,8 +14,8 @@ from django.contrib.auth import authenticate, login
 # Create your views here.
 
 def index(request):
-    casas = Casa.objects.order_by('data_postagem')[:5]
-    aptos = Apartamento.objects.order_by('data_postagem')[:5]
+    casas = Casa.objects.order_by('data_postagem')[:8]
+    aptos = Apartamento.objects.order_by('data_postagem')[:8]
 
     now = timezone.now()
     one_week_ago = now-datetime.timedelta(7)

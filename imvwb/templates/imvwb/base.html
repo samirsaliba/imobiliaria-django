@@ -55,18 +55,16 @@
           {% endif %}
         </ul>
       </div>
+
       {% if user.is_authenticated %}
-        <span class="navbar-text">
-          Usuário: {{ user.get_username }}
-        </span>
-        <a class="nav-link my-2 my-sm-0" href="{% url 'logout'  %}">Sair</a>  
+        <a class="btn btn-outline-secondary" href="{% url 'logout'  %}" role="button">{{ user.get_username }} | sair</a> 
       {% else %}
         <a class="nav-link my-2 my-sm-0" href="{% url 'login'  %}">Entrar</a>  
       {% endif %}
     </nav>
 
 
-    <div class="container pt-5">
+    <div class="container pt-4">
         {% block content %}
         {% endblock %}
     </div>

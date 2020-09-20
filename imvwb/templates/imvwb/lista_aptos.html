@@ -1,78 +1,85 @@
 {% extends "./base.html" %} 
 {% block content %}
 
-<!-- Documentacao para auxiliar os forms https://getbootstrap.com/docs/4.0/components/input-group/ -->
-
-<h3>Apartamentos</h3>
-<div class="jumbotron">
-    <form method="get">
-        <div class="row pb-3">
-            <div class="col">
-                <div class="input-group mb-3">
-                    {{ form.aluguel__gt.errors }}
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="{{form.aluguel__gt.id_for_label}}">Aluguel mínimo</span>
-                    </div>
-                    {{ form.aluguel__gt }}
-                </div>
-            </div>
-            <div class="col">
-                <div class="input-group mb-3">
-                    {{ form.aluguel__lt.errors }}
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="{{ form.aluguel__lt.id_for_label }}">Aluguel máximo</span>
-                    </div>
-                    {{ form.aluguel__lt }}
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class='col'>
-                <div class="input-group mb-3">
-                    {{ form.bairro.errors }}
-                    <div class="input-group-prepend">
-                    <label class="input-group-text" for="{{form.bairro.id_for_label}}">Bairro</label>
-                    </div>
-                    {{ form.bairro }}
-                </div>
-            </div>
-            <div class="col">
-                <div class="input-group mb-3">
-                    {{ form.quartos__gt.errors }}
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="{{form.quartos__gt.id_for_label}}">Nº quartos mínimo</span>
-                    </div>
-                    {{ form.quartos__gt }}
-                </div>
-            </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Filtrar</button>
-    </form>
+<div class="row">
+    <h3>
+        <a href="{% url 'imvwb:aptos' %}" class="text-decoration-none">
+           Apartamentos
+        </a>
+    </h3>
 </div>
 
-<div class=row>
-    {% for apto in aptos %}
-        {% if forloop.counter|divisibleby:"5" %}
-            <div class=row>
-        {% endif %}
-        <div class="card" style="width: 18rem;">
-            <img src="{{apto.imagem.url}}" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">
-                    <a href="{% url 'imvwb:detail_apto' apto.id %}">
-                        Apartamento em {{apto.bairro}}, {{apto.cidade}}, {{apto.area}} m²
-                    </a>
-                </h5>    
-                <span class="badge badge-success badge-pill">R${{apto.aluguel}}</span>
-                {%if apto.new %}
-                    <span class="badge badge-secondary badge-pill">Novidade</span>
-                {% endif %}
-            </div> 
-        </div>
-        {% if forloop.counter|divisibleby:"5" %}
+<div class="row">
+    <div class="jumbotron w-100">
+        <form method="get">
+            <div class="row pb-3">
+                <div class="col">
+                    <div class="input-group mb-3">
+                        {{ form.aluguel__gt.errors }}
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="{{form.aluguel__gt.id_for_label}}">Aluguel mínimo</span>
+                        </div>
+                        {{ form.aluguel__gt }}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group mb-3">
+                        {{ form.aluguel__lt.errors }}
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="{{ form.aluguel__lt.id_for_label }}">Aluguel máximo</span>
+                        </div>
+                        {{ form.aluguel__lt }}
+                    </div>
+                </div>
             </div>
-        {% endif %}
+
+            <div class="row">
+                <div class='col'>
+                    <div class="input-group mb-3">
+                        {{ form.bairro.errors }}
+                        <div class="input-group-prepend">
+                        <label class="input-group-text" for="{{form.bairro.id_for_label}}">Bairro</label>
+                        </div>
+                        {{ form.bairro }}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group mb-3">
+                        {{ form.quartos__gt.errors }}
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="{{form.quartos__gt.id_for_label}}">Nº quartos mínimo</span>
+                        </div>
+                        {{ form.quartos__gt }}
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+        </form>
+    </div>
+</div>
+
+
+<div class="row">
+    {% for apto in aptos %}
+        <div class="col-3 px-0">
+            <div class="card mx-0" style="width:100%">
+                <img src="{{apto.imagem.url}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{% url 'imvwb:detail_apto' apto.id %}" class="text-decoration-none">
+                            Apartamento em {{apto.bairro}}, {{apto.cidade}}, {{apto.area}} m²
+                        </a>
+                    </h5>
+                    <p class="card-text">{{apto.num_quartos}} Quartos</p>
+                    <h5>
+                        <span class="badge badge-success badge-pill">R${{apto.aluguel}}</span>
+                        {%if apto.new %}
+                            <span class="badge badge-secondary badge-pill">Novidade</span>
+                        {% endif %}
+                    </h5>
+                </div> 
+            </div>
+        </div>
     {% endfor %}
 </div>
 
