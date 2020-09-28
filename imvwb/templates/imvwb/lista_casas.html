@@ -9,9 +9,10 @@
     </h3>
 </div>
 
+
 <div class="row">
     <div class="jumbotron w-100">
-        <form method="get">
+        <form method="get" id="getForm">
             <div class="row pb-3">
                 <div class="col">
                     <div class="input-group mb-3">
@@ -34,8 +35,8 @@
             </div>
 
             <div class="row">
-                <div class='col'>
-                    <div class="input-group mb-3">
+                <div class='col-md-4'>
+                    <div class="input-group mb-4">
                         {{ form.bairro.errors }}
                         <div class="input-group-prepend">
                         <label class="input-group-text" for="{{form.bairro.id_for_label}}">Bairro</label>
@@ -43,7 +44,12 @@
                         {{ form.bairro }}
                     </div>
                 </div>
-                <div class="col">
+                <div class="div col-md-2">
+                    <a type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAddBairro">
+                        Outro Bairro
+                    </a>
+                </div>
+                <div class="col-md-6">
                     <div class="input-group mb-3">
                         {{ form.quartos__gt.errors }}
                         <div class="input-group-prepend">
@@ -53,7 +59,7 @@
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Filtrar</button>
+            <button type="submit" for="getForm" class="btn btn-primary">Filtrar</button>
         </form>
     </div>
 </div>
@@ -81,5 +87,44 @@
         </div>
     {% endfor %}
 </div>
+
+<!-- Modal addBairro-->
+<div class="modal fade" id="modalAddBairro" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Adicionar Bairro</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          
+              
+        <form method="post" id="formBairro" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class='col'>
+                    <div class="input-group mb-3">
+                        {{ formBairro.nome.errors }}
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="{{form.nome.id_for_label}}">{{formBairro.nome.label}}</label>
+                        </div>
+                        {{ formBairro.nome }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" for="formBairro" class="btn btn-primary">Adicionar</button>
+              </div>
+        </form>
+
+        </div>
+      </div>
+    </div>
+</div>
+  
 
 {% endblock %}

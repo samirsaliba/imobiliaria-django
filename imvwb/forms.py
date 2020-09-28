@@ -44,3 +44,6 @@ class ApartamentoForm(ImovelForm):
     possui_portaria_24h = forms.BooleanField(label='Portaria 24h?', required=False)
 
 
+class BairroForm(forms.Form):
+    nome = forms.CharField(label='Nome', max_length=50)
+

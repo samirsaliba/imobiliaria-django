@@ -5,8 +5,8 @@ from django.urls import reverse
 import datetime
 from django.utils import timezone
 
-from .models import Imovel, Casa, Apartamento, Imagem
-from .forms import CasaForm, ApartamentoForm
+from .models import Imovel, Casa, Apartamento, Imagem, Bairro
+from .forms import BairroForm, CasaForm, ApartamentoForm
 from .filters import ApartamentoFilter, CasaFilter
 from django.contrib.auth import authenticate, login
 
@@ -56,6 +56,7 @@ def detail_apto(request, apto_id):
     context = {'apto': apto, 'imagens': imagens}
 
     return render(request, 'imvwb/detail_apto.html', context)
+
 
 def cadastro_casa(request):
     # if this is a POST request we need to process the form data
@@ -198,9 +199,29 @@ def lista_casas(request):
     
     context = {
         'casas':casa_filter.qs,
-        'form':casa_filter.form
+        'form':casa_filter.form,
+        'formBairro':BairroForm()
     }
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        formBairro = BairroForm(request.POST)
+        
+        context = {
+            'casas':casa_filter.qs,
+            'form':casa_filter.form,
+            'formBairro':formBairro
+        }
+        # check whether it's valid:
+        if formBairro.is_valid():
+            nome = formBairro.cleaned_data['nome']
 
+            bairro = Bairro(
+                nome = nome
+            )
+            bairro.save()
+            
+            return HttpResponseRedirect(reverse('imvwb:index'))
     return render(request, 'imvwb/lista_casas.html', context)
 
 def lista_aptos(request):
@@ -217,7 +238,28 @@ def lista_aptos(request):
     
     context = {
         'aptos':apto_filter.qs,
-        'form':apto_filter.form
+        'form':apto_filter.form,
+        'formBairro':BairroForm()
     }
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        formBairro = BairroForm(request.POST)
+        
+        context = {
+            'aptos':apto_filter.qs,
+            'form':apto_filter.form,
+            'formBairro':formBairro
+        }
+        # check whether it's valid:
+        if formBairro.is_valid():
+            nome = formBairro.cleaned_data['nome']
 
+            bairro = Bairro(
+                nome = nome
+            )
+            bairro.save()
+            
+            return HttpResponseRedirect(reverse('imvwb:index'))
     return render(request, 'imvwb/lista_aptos.html', context)
+
