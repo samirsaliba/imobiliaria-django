@@ -3,7 +3,11 @@ Projeto de um simples website de listagem de imóveis (como uma imobiliária), u
 
 ## [Visualizar projeto no Heroku](http://umlugar.herokuapp.com)
 
-Obs: a versão hospedada no Heroku apresenta algumas diferenças de código em relação a esta; As diferenças são apenas em relação a configuração do banco de dados, variáveis locais, e arquivos estáticos  --
+INSTRUÇÕES:  
+1. instale as dependências em requirements.txt - ex: pip install Django==3.1.1
+2. execute o comando: "python manage.py runserver"
+
+Obs: a versão hospedada no Heroku apresenta algumas diferenças de código em relação a esta; entretanto, diferenças são apenas em relação a configuração do banco de dados, variáveis locais, e arquivos estáticos  --
 portanto não há diferenças na visualização do projeto.
 
 
