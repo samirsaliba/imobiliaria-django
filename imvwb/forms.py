@@ -24,14 +24,6 @@ class ImovelForm(forms.Form):
     imagens = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True, 'class':'form-control-file'}))
 
 
-
-
-    '''
-    TODO: adicionar várias imagens juntas
-    ver documentação - File Uploads https://docs.djangoproject.com/en/3.1/topics/http/file-uploads/
-    detalhe para subseção - Uploading Multiple Files
-    '''
-
 class CasaForm(ImovelForm):
     tipo = 1
     pass
