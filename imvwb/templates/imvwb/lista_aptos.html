@@ -11,7 +11,7 @@
 
 <div class="row">
     <div class="jumbotron w-100">
-        <form method="get">
+        <form method="get" id="getForm">
             <div class="row pb-3">
                 <div class="col">
                     <div class="input-group mb-3">
@@ -34,8 +34,8 @@
             </div>
 
             <div class="row">
-                <div class='col'>
-                    <div class="input-group mb-3">
+                <div class='col-md-6'>
+                    <div class="input-group mb-4">
                         {{ form.bairro.errors }}
                         <div class="input-group-prepend">
                         <label class="input-group-text" for="{{form.bairro.id_for_label}}">Bairro</label>
@@ -43,7 +43,7 @@
                         {{ form.bairro }}
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-md-6">
                     <div class="input-group mb-3">
                         {{ form.quartos__gt.errors }}
                         <div class="input-group-prepend">
@@ -53,7 +53,7 @@
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Filtrar</button>
+            <button type="submit" for="getForm" class="btn btn-primary">Filtrar</button>
         </form>
     </div>
 </div>
@@ -83,7 +83,5 @@
     {% endfor %}
 </div>
 
-
-
-
+  
 {% endblock %}

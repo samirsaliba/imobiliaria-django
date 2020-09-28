@@ -5,10 +5,11 @@ from django.urls import reverse
 import datetime
 from django.utils import timezone
 
-from .models import Imovel, Casa, Apartamento, Imagem
-from .forms import CasaForm, ApartamentoForm
+from .models import Imovel, Casa, Apartamento, Imagem, Bairro
+from .forms import BairroForm, CasaForm, ApartamentoForm
 from .filters import ApartamentoFilter, CasaFilter
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import permission_required
 
 
 # Create your views here.
@@ -57,9 +58,13 @@ def detail_apto(request, apto_id):
 
     return render(request, 'imvwb/detail_apto.html', context)
 
+
+
+
+@permission_required("imvwb.add_casa")
 def cadastro_casa(request):
     # if this is a POST request we need to process the form data
-    if request.method == 'POST':
+    if request.method == 'POST' and 'btnImovel' in request.POST:
         # create a form instance and populate it with data from the request:
         form = CasaForm(request.POST, request.FILES)
         # check whether it's valid:
@@ -111,17 +116,37 @@ def cadastro_casa(request):
             
             return HttpResponseRedirect(reverse('imvwb:index'))
 
+    elif request.method == 'POST' and 'btnBairro' in request.POST:
+        # create a form instance and populate it with data from the request:
+        formBairro = BairroForm(request.POST)
+        
+        # check whether it's valid:
+        if formBairro.is_valid():
+            nome = formBairro.cleaned_data['nome']
+
+            bairro = Bairro(
+                nome = nome
+            )
+            bairro.save()
+            
+            return HttpResponseRedirect(request.path_info)
+
     # if a GET (or any other method) we'll create a blank form
     else:
-        form = CasaForm()
+        context = {
+        'form':CasaForm(),
+        'formBairro':BairroForm()
+        }
 
-    return render(request, 'imvwb/cadastro_imovel.html', {'form': form})
+    return render(request, 'imvwb/cadastro_imovel.html', context)
 
+@permission_required("imvwb.add_apartamento")
 def cadastro_apto(request):
     # if this is a POST request we need to process the form data
-    if request.method == 'POST':
+    if request.method == 'POST' and 'btnImovel' in request.POST:
         # create a form instance and populate it with data from the request:
         form = ApartamentoForm(request.POST, request.FILES)
+        
         # check whether it's valid:
         if form.is_valid():
             # Se o form for valido, cadastrar a Casa
@@ -178,12 +203,30 @@ def cadastro_apto(request):
                 img_objeto.save()
             
             return HttpResponseRedirect(reverse('imvwb:index'))
+    
+    elif request.method == 'POST' and 'btnBairro' in request.POST:
+        # create a form instance and populate it with data from the request:
+        formBairro = BairroForm(request.POST)
+        
+        # check whether it's valid:
+        if formBairro.is_valid():
+            nome = formBairro.cleaned_data['nome']
+
+            bairro = Bairro(
+                nome = nome
+            )
+            bairro.save()
+            
+            return HttpResponseRedirect(request.path_info)
 
     # if a GET (or any other method) we'll create a blank form
     else:
-        form = ApartamentoForm()
+        context = {
+        'form':ApartamentoForm(),
+        'formBairro':BairroForm()
+        }
 
-    return render(request, 'imvwb/cadastro_imovel.html', {'form': form})
+    return render(request, 'imvwb/cadastro_imovel.html', context)
 
 def lista_casas(request):
     casas_list = Casa.objects.order_by('data_postagem')
@@ -198,7 +241,7 @@ def lista_casas(request):
     
     context = {
         'casas':casa_filter.qs,
-        'form':casa_filter.form
+        'form':casa_filter.form,
     }
 
     return render(request, 'imvwb/lista_casas.html', context)
@@ -217,7 +260,8 @@ def lista_aptos(request):
     
     context = {
         'aptos':apto_filter.qs,
-        'form':apto_filter.form
+        'form':apto_filter.form,
     }
 
     return render(request, 'imvwb/lista_aptos.html', context)
+

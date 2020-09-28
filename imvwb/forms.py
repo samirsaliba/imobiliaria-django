@@ -24,14 +24,6 @@ class ImovelForm(forms.Form):
     imagens = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True, 'class':'form-control-file'}))
 
 
-
-
-    '''
-    TODO: adicionar várias imagens juntas
-    ver documentação - File Uploads https://docs.djangoproject.com/en/3.1/topics/http/file-uploads/
-    detalhe para subseção - Uploading Multiple Files
-    '''
-
 class CasaForm(ImovelForm):
     tipo = 1
     pass
@@ -43,4 +35,7 @@ class ApartamentoForm(ImovelForm):
     valor_condominio = forms.IntegerField(label='Valor do condomínio', max_value=max_small_integer)
     possui_portaria_24h = forms.BooleanField(label='Portaria 24h?', required=False)
 
+
+class BairroForm(forms.Form):
+    nome = forms.CharField(label='Nome', max_length=50)
 
