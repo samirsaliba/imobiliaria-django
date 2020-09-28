@@ -221,7 +221,7 @@ def lista_casas(request):
             )
             bairro.save()
             
-            return HttpResponseRedirect(reverse('imvwb:index'))
+            return HttpResponseRedirect(request.path_info)
     return render(request, 'imvwb/lista_casas.html', context)
 
 def lista_aptos(request):
@@ -260,6 +260,6 @@ def lista_aptos(request):
             )
             bairro.save()
             
-            return HttpResponseRedirect(reverse('imvwb:index'))
+            return HttpResponseRedirect(request.path_info)
     return render(request, 'imvwb/lista_aptos.html', context)
 
